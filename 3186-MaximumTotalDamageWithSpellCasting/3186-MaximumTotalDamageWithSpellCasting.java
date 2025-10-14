@@ -1,4 +1,4 @@
-// Last updated: 10/14/2025, 1:05:23 AM
+// Last updated: 10/15/2025, 1:20:42 AM
 class Solution {
     public long maximumTotalDamage(int[] power) {
         Map<Integer, Long> freq = new HashMap<>();
