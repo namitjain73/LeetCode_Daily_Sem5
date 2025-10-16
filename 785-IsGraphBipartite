@@ -1,0 +1,36 @@
+// Last updated: 10/17/2025, 12:40:01 AM
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int V = graph.length;
+        List<List<Integer>> ll = new ArrayList<>();
+        int[] color = new int[V];
+        Arrays.fill(color,-1);
+
+        for(int i = 0 ; i < V ; i++){
+            ll.add(new ArrayList<>());
+        }
+
+        for(int i = 0 ; i < V ; i++){
+            for(int j : graph[i]){
+                ll.get(i).add(j);
+            }
+        }
+
+        for(int i = 0 ; i < V ; i++){
+            if(color[i] == -1){
+                color[i] = 0;
+                if(!dfs(ll,color,i)) return false;
+            }
+        }
+        return true;
+    }
+    public boolean dfs(List<List<Integer>> adj , int[] color , int node){
+        for(int i : adj.get(node)){
+            if(color[i] == -1){
+                color[i] = (color[node]+1)%2;
+                if(!dfs(adj,color,i)) return false;
+            }else if(color[node] == color[i]) return false;
+        }
+    return true;
+    }
+}
