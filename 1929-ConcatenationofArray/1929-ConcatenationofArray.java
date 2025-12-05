@@ -1,12 +1,14 @@
-// Last updated: 12/5/2025, 11:14:44 PM
+// Last updated: 12/5/2025, 11:23:44 PM
 1class Solution {
-2    public int[] getConcatenation(int[] nums) {
-3        int n = nums.length;
-4        int[] ans= new int[n+n];
-5        for(int i = 0 ; i < n ; i++){
-6            ans[i] = nums[i];
-7            ans[i+n] = nums[i];
-8        }
-9        return ans;
-10    }
-11}
+2    public int[] shuffle(int[] nums, int n) {
+3        int[] ans = new int[2*n];
+4        int j = 0;
+5        for(int i = 0 ; i < 2*n ; i+=2){
+6            //System.out.println(i);
+7            ans[i] = nums[j];
+8            ans[i+1] = nums[j+n];
+9            j++;
+10        }
+11        return ans;
+12    }
+13}
