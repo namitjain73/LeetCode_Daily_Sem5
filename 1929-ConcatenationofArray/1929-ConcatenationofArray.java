@@ -1,4 +1,4 @@
-// Last updated: 12/5/2025, 11:34:51 PM
+// Last updated: 12/5/2025, 11:35:14 PM
 1class Solution {
 2    public int[] findErrorNums(int[] nums) {
 3        Arrays.sort(nums);
