@@ -1,15 +1,19 @@
-// Last updated: 10/30/2025, 12:08:05 AM
-class Solution {
-    public int findJudge(int n, int[][] trust) {
-        int[] indeg = new int[n];
-        int[] outdeg = new int[n];
-        for(int[] i : trust){
-            outdeg[i[0]-1]++;
-            indeg[i[1]-1]++;
-        }
-        for(int i = 0 ; i < n ; i++){
-            if(outdeg[i] == 0 && indeg[i] == n-1) return i+1;
-        }
-        return -1;
-    }
-}
+// Last updated: 12/30/2025, 2:36:37 AM
+1class Solution {
+2    public int findJudge(int n, int[][] trust) {
+3        Set<Integer> visited = new HashSet<>();
+4        int[] count = new int[n+1];
+5
+6        for(int i = 0 ; i < trust.length ; i++){
+7            int[] curr = trust[i];
+8            visited.add(curr[0]);
+9            count[curr[1]]++;
+10        }
+11
+12
+13        for(int i = 1 ; i <= n ; i++){
+14            if(count[i] == n-1 && !visited.contains(i)) return i;
+15        }
+16        return -1;
+17    }
+18}
