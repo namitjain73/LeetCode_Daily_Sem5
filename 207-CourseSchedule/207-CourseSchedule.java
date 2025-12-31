@@ -1,34 +1,35 @@
-// Last updated: 10/14/2025, 12:40:42 AM
-class Solution {
-    public boolean canFinish(int n, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for(int i = 0 ; i < n ; i++){
-            adj.add(new ArrayList<>());
-        }
-        int[] indeg = new int[n];
-        for(int[] e : prerequisites){
-            int u = e[0];
-            int v = e[1];
-            adj.get(u).add(v);
-            indeg[v]++;
-        }
-        Queue<Integer> q = new LinkedList<>();
-        for(int i = 0 ; i < n ; i++){
-            if(indeg[i] == 0){
-                q.add(i);
-                System.out.println(i);
-            }
-        }
-
-        int c = 0;
-        while(!q.isEmpty()){
-            int node = q.poll();
-            c++;
-            for(int x : adj.get(node)){
-                indeg[x]--;
-                if(indeg[x] == 0) q.add(x);
-            }
-        }
-        return c == n;
-    }
-}
+// Last updated: 12/31/2025, 11:17:12 AM
+1class Solution {
+2    public boolean canFinish(int v, int[][] pre) {
+3        int[] indeg = new int[v];
+4        List<List<Integer>>  ll = new ArrayList<>();
+5        for(int i = 0 ; i < v ; i++){
+6            ll.add(new ArrayList<>());
+7        }
+8        for(int[] i : pre){
+9            ll.get(i[0]).add(i[1]);
+10            indeg[i[1]]++;
+11        }
+12
+13        int n = 0;
+14        Queue<Integer> q = new LinkedList<>();
+15        for(int i = 0 ; i < v ; i++){
+16            if(indeg[i] == 0){
+17                q.add(i);
+18            }
+19        }
+20        while(!q.isEmpty()){
+21            int rm = q.poll();
+22            n++;
+23            
+24            for(int i : ll.get(rm)){
+25                indeg[i]--;
+26                if(indeg[i] == 0){
+27                    q.add(i);
+28                }
+29            }
+30        }
+31
+32        return n == v;
+33    }
+34}
