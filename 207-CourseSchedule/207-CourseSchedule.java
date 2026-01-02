@@ -1,4 +1,4 @@
-// Last updated: 12/31/2025, 11:17:12 AM
+// Last updated: 1/2/2026, 6:48:08 AM
 1class Solution {
 2    public boolean canFinish(int v, int[][] pre) {
 3        int[] indeg = new int[v];
