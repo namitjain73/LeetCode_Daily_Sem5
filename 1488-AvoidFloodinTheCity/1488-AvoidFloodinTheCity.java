@@ -1,55 +1,27 @@
-// Last updated: 10/13/2025, 3:12:48 AM
-class Solution {
-    public int[] avoidFlood(int[] rain) {
-        int n = rain.length;
-        UnionFind uf = new UnionFind(n + 1);
-        Map<Integer, Integer> map = new HashMap<>();
-        int[] res = new int[n];
-        Arrays.fill(res, 1);
-
-        for (int i = 0; i < n; i++) {
-            int lake = rain[i];
-            if (lake == 0) continue;
-
-            res[i] = -1;
-            uf.unite(i);
-
-            if (map.containsKey(lake)) {
-                int prev = map.get(lake);
-                int dry = uf.find(prev + 1);
-
-                if (dry >= i) return new int[0];
-
-                res[dry] = lake;
-                uf.unite(dry);
-                map.put(lake, i);
-            } else {
-                map.put(lake, i);
-            }
-        }
-
-        return res;
-    }
-}
-
-class UnionFind {
-    int[] parent;
-
-    public UnionFind(int size) {
-        parent = new int[size + 1];
-        for (int i = 0; i <= size; i++) {
-            parent[i] = i;
-        }
-    }
-
-    public int find(int i) {
-        if (parent[i] == i)
-            return i;
-        parent[i] = find(parent[i]);
-        return parent[i];
-    }
-
-    public void unite(int i) {
-        parent[i] = find(i + 1);
-    }
-}
+// Last updated: 1/10/2026, 11:17:34 PM
+1class Solution {
+2
+3    public int[] avoidFlood(int[] rains) {
+4        int[] ans = new int[rains.length];
+5        Arrays.fill(ans, 1);
+6        TreeSet<Integer> st = new TreeSet<Integer>();
+7        Map<Integer, Integer> mp = new HashMap<Integer, Integer>();
+8        for (int i = 0; i < rains.length; ++i) {
+9            if (rains[i] == 0) {
+10                st.add(i);
+11            } else {
+12                ans[i] = -1;
+13                if (mp.containsKey(rains[i])) {
+14                    Integer it = st.ceiling(mp.get(rains[i]));
+15                    if (it == null) {
+16                        return new int[0];
+17                    }
+18                    ans[it] = rains[i];
+19                    st.remove(it);
+20                }
+21                mp.put(rains[i], i);
+22            }
+23        }
+24        return ans;
+25    }
+26}
