@@ -1,22 +1,21 @@
-// Last updated: 1/19/2026, 10:57:08 PM
+// Last updated: 1/21/2026, 11:13:48 PM
 1class Solution {
 2    public int totalSteps(int[] nums) {
 3        Stack<int[]> st = new Stack<>();
-4        int ans = 0;
+4        int res = 0;
 5
-6        for(int num : nums){
-7            int step = 0;
-8
-9            while(!st.isEmpty() && st.peek()[0] <= num){
-10                step = Math.max(step,st.pop()[1]);
-11            }
-12
-13            if(st.isEmpty()) step =0;
-14            else step += 1;
-15
-16            ans = Math.max(ans,step);
-17            st.push(new int[]{num,step});
-18        }
-19        return ans;
-20    }
-21}
+6        for(int i = 0 ; i < nums.length ; i++){
+7            int step=0;
+8            while(!st.isEmpty() && nums[st.peek()[0]] <= nums[i]){
+9                step = Math.max(step , st.pop()[1]);
+10            }
+11
+12            if(st.isEmpty()) step = 0;
+13            else step++;
+14
+15            res = Math.max(res,step);
+16            st.push(new int[]{i,step});
+17        }
+18        return res;
+19    }
+20}
