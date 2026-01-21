@@ -1,9 +1,10 @@
-// Last updated: 1/21/2026, 11:42:05 AM
+// Last updated: 1/21/2026, 12:09:06 PM
 1class Solution {
-2    public int xorAllNums(int[] nums1, int[] nums2) {
-3        int ans = 0;
-4        if(nums2.length % 2 != 0) for(int i = 0 ; i < nums1.length ; i++) ans ^= nums1[i];
-5        if(nums1.length % 2 != 0) for(int i = 0 ; i < nums2.length ; i++) ans ^= nums2[i]; 
-6        return ans;
-7    }
-8}
+2    public int getXORSum(int[] arr1, int[] arr2) {
+3        int xor1 = 0;
+4        int xor2 = 0;
+5        for(int i= 0 ; i < arr1.length ; i++) xor1 ^= arr1[i];
+6        for(int j= 0 ; j < arr2.length;  j++) xor2 ^= arr2[j];
+7        return xor1 & xor2;
+8    }
+9}
