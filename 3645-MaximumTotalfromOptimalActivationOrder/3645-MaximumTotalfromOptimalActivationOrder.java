@@ -1,4 +1,4 @@
-// Last updated: 1/18/2026, 11:12:12 PM
+// Last updated: 1/23/2026, 11:41:42 PM
 1class Solution {
 2    public long maxTotal(int[] value, int[] limit) {
 3        int n = value.length;
