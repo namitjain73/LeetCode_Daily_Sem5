@@ -1,4 +1,4 @@
-// Last updated: 1/11/2026, 5:58:31 PM
+// Last updated: 1/27/2026, 11:06:43 PM
 1class Solution {
 2    public int closestMeetingNode(int[] edges, int node1, int node2) {
 3        int n = edges.length;
