@@ -1,4 +1,4 @@
-// Last updated: 1/22/2026, 11:51:09 PM
+// Last updated: 2/6/2026, 11:43:00 PM
 1class Solution {
 2    public int monkeyMove(int n) {
 3        int mod = 1000000007;
