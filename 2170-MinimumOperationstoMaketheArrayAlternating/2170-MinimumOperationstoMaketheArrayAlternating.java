@@ -1,4 +1,4 @@
-// Last updated: 1/18/2026, 11:34:43 PM
+// Last updated: 2/7/2026, 11:07:05 PM
 1class Solution {
 2    public int minimumOperations(int[] nums) {
 3        HashMap<Integer,Integer> freq1 =  new HashMap<>();
