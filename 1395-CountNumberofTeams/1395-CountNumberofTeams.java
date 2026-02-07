@@ -1,4 +1,4 @@
-// Last updated: 1/20/2026, 1:38:00 AM
+// Last updated: 2/7/2026, 11:06:37 PM
 1class Solution {
 2    public int numTeams(int[] arr) {
 3        int ans = 0;
