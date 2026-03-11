@@ -1,4 +1,4 @@
-// Last updated: 1/2/2026, 6:36:54 AM
+// Last updated: 3/11/2026, 3:23:31 PM
 1class Solution {
 2public class Prims_Algo {
 3    public ArrayList<String> ll = new ArrayList<>();
@@ -69,7 +69,7 @@
 68		
 69		ArrayList<String> ll = pq.PrimsAlgorithm();
 70        int[] ans = new int[2];
-71        System.out.println(ll);
+71        // System.out.println(ll);
 72        for(int[] i : edges){
 73            String s = i[0] + " " + i[1];
 74            if(!ll.contains(s)){
