@@ -1,4 +1,4 @@
-// Last updated: 2/12/2026, 1:55:10 AM
+// Last updated: 3/15/2026, 12:30:10 AM
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -16,21 +16,18 @@
 15 */
 16class Solution {
 17    List<Integer> ll;
-18    List<Integer> check;
-19    public void solver(TreeNode root, int n){
-20        if(root == null) return;
-21
-22        if(!check.contains(n)){
-23            check.add(n);
-24            ll.add(root.val);
-25        }
-26        solver(root.right,n+1);
-27        solver(root.left,n+1);
-28    }
-29    public List<Integer> rightSideView(TreeNode root) {
-30        ll =new ArrayList<>();
-31        check = new ArrayList<>();
-32        solver(root,0);
-33        return ll;
-34    }
-35}
+18    public void solver(TreeNode root, int n){
+19        if(root == null) return;
+20
+21        if(ll.size()-1 < n){
+22            ll.add(root.val);
+23        }
+24        solver(root.right,n+1);
+25        solver(root.left,n+1);
+26    }
+27    public List<Integer> rightSideView(TreeNode root) {
+28        ll =new ArrayList<>();
+29        solver(root,0);
+30        return ll;
+31    }
+32}
