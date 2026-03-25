@@ -1,31 +1,26 @@
-// Last updated: 1/10/2026, 10:47:59 PM
+// Last updated: 3/25/2026, 11:13:59 AM
 1class Solution {
 2    public long maxStrength(int[] nums) {
-3        if(nums.length==1) return nums[0];
-4        int zero = 0;
-5        int neg = 0;
-6        int maxNeg = Integer.MIN_VALUE; 
-7        long res = 1;
-8        boolean hasNonZero = false;
-9
-10        for (int x : nums) {
-11            if (x == 0) {
-12                zero++;
-13                continue;
-14            }
-15            res *= x;
-16
-17            if (x < 0) {
-18                neg++;
-19                maxNeg = Math.max(maxNeg, x);
-20            }
-21        }
-22        if((neg == 1 && zero+1 == nums.length) || zero==nums.length) res=0;
-23        if (neg % 2 == 1) {
-24            res /= maxNeg;
-25        }
-26
-27        return res;
-28    }
-29}
-30
+3        if(nums.length == 1) return nums[0];
+4        long res=1;
+5        int neg = Integer.MIN_VALUE;
+6        int n = nums.length;
+7        int zero = 0;
+8
+9        for(int i= 0 ; i < n  ; i++){
+10            if(nums[i] > 0){
+11                res *= nums[i];
+12            }else if(nums[i] < 0){
+13                neg = Math.max(neg , nums[i]);
+14                res *= nums[i];
+15            }else zero++;
+16        }
+17
+18        if(res < 0) res = res / neg;
+19        if(zero ==  n) return 0;
+20        if(zero == n-1 && neg != Integer.MIN_VALUE){
+21            return 0;
+22        }
+23        return res;
+24    }
+25}
