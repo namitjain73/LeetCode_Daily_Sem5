@@ -1,19 +1,33 @@
-// Last updated: 4/30/2026, 5:56:50 PM
+// Last updated: 4/30/2026, 6:26:21 PM
 1class Solution {
-2    public int lengthOfLongestSubstring(String s) {
-3        int l = 0;
-4        int sum = 0;
-5        int max = 0;
-6        int n = s.length();
-7        int[] arr = new int[256];
-8        for(int r = 0; r < n; r++){
-9            arr[s.charAt(r)]++;
-10            while(arr[s.charAt(r)] > 1){
-11                arr[s.charAt(l)]--;
-12                l++;
-13            }
-14            max = Math.max(max , r-l+1);
-15        }
-16        return max;
-17    }
-18}
+2    public String longestPalindrome(String s) {
+3        int len = 0;
+4        String ans = "";
+5        int n = s.length();
+6        for(int i = 0 ; i < n ; i++){
+7            int l = i;
+8            int r = i;
+9
+10            while((l >= 0 && r < n) && s.charAt(l) == s.charAt(r)){
+11                if(len < (r - l + 1)){
+12                    len= r - l + 1;
+13                    ans = s.substring(l , r+1);
+14                }
+15                l--;
+16                r++;
+17            }
+18            
+19            l = i;
+20            r = i+1;
+21            while((l >= 0 && r < n) && s.charAt(l) == s.charAt(r)){
+22                if(len < (r - l + 1)){
+23                    len= r - l + 1;
+24                    ans = s.substring(l , r+1);
+25                }
+26                l--;
+27                r++;
+28            }
+29        }
+30        return ans; 
+31    }
+32}
