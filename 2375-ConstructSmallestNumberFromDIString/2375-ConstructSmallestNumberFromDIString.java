@@ -1,4 +1,4 @@
-// Last updated: 5/9/2026, 8:46:11 PM
+// Last updated: 5/9/2026, 8:51:28 PM
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -15,20 +15,23 @@
 14 * }
 15 */
 16class Solution {
-17    // Set<Integer> set;
-18    public List<Integer> rightSideView(TreeNode root) {
-19        // set =new HashSet<>();
-20        List<Integer> ll = new ArrayList<>();
-21        solver(root , 0 , ll);
-22        return ll;
-23    }
-24    public void solver(TreeNode root , int n , List<Integer> ll){
-25        if(root == null) return;
+17    int ans= 0;
+18    public void helper(TreeNode root, String s){
+19        if(root == null) return;
+20        if(root.left == null && root.right == null){
+21            s = s + Integer.toString(root.val);
+22            System.out.println(s);
+23            ans = ans + Integer.parseInt(s);
+24        }
+25
 26
-27        if(ll.size() == n ) ll.add(root.val);
-28
+27        helper(root.left , s += root.val);
+28        helper(root.right , s);
 29
-30        solver(root.right , n+1 , ll);
-31        solver(root.left , n+1 , ll);
-32    }
-33}
+30    }
+31    public int sumNumbers(TreeNode root) {
+32        ans = 0;
+33        helper(root,"");
+34        return ans;
+35    }
+36}
