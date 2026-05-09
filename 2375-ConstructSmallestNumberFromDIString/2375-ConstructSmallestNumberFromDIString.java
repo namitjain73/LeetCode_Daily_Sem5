@@ -1,55 +1,47 @@
-// Last updated: 5/9/2026, 6:41:52 PM
+// Last updated: 5/9/2026, 8:24:17 PM
 1class Solution {
-2    public ListNode reverseKGroup(ListNode head, int k) {
-3        ListNode temp = head;
-4        ListNode next = null;
-5        ListNode kth = null;
-6        ListNode pre = null;
-7
-8
-9        while(temp != null){
-10            kth = kthNode(temp,k);
-11            if(kth == null){
-12                if(pre  != null){
-13                    pre.next = temp;
-14                    break;
-15                }
-16            }
-17
-18            next = kth.next;
-19            kth.next = null;
-20            reverse(temp);
-21            if(temp == head){
-22                head = kth;
-23
-24            }else{
-25                pre.next = kth;
-26            }
-27
-28            pre = temp;
-29            temp = next;
-30        }
-31        return head;
-32    }
+2    public int maximalRectangle(char[][] matrix) {
+3        int ans = 0;
+4        int n = matrix.length;
+5        int[] arr = new int[matrix[0].length];
+6        for(int i = n-1 ; i >= 0 ; i--){
+7            for(int j = 0 ; j < matrix[0].length ; j++){
+8                if(matrix[i][j] == '0') arr[j]= 0;
+9                else arr[j]++;
+10            }
+11            ans = Math.max(ans , rectangle(arr));
+12        }
+13        return ans;
+14    }
+15    public int rectangle(int[] arr){
+16        Stack<Integer> st = new Stack<>();
+17        int ans= 0;
+18
+19
+20        for(int i = 0 ; i < arr.length ; i++){
+21            while(!st.isEmpty() && arr[i] < arr[st.peek()]){
+22                int h = arr[st.pop()];
+23                int r = i;
+24                if(st.isEmpty()){
+25                    ans = Math.max(ans , r*h);
+26                }else{
+27                    int l = st.peek();
+28                    ans = Math.max(ans , h * (r - l - 1));
+29                }
+30            }
+31            st.push(i);
+32        }
 33
-34    public ListNode kthNode(ListNode head , int n){
-35        n--;
-36        while(head != null && n-- > 0){
-37            head = head.next;
-38        }
-39
-40        return head;
-41    }
-42
-43    public void reverse(ListNode head){
-44        ListNode pre = null;
-45        ListNode temp = head;
-46
-47        while(temp != null){
-48            ListNode curr = temp.next;
-49            temp.next = pre;
-50            pre = temp;
-51            temp = curr;
-52        }
-53    }
-54}
+34        int r = arr.length;
+35        while(!st.isEmpty()){
+36            int h = arr[st.pop()];
+37            if(st.isEmpty()){
+38                ans = Math.max(ans , r*h);
+39            }else{
+40                int l= st.peek();
+41                ans = Math.max(ans , h * (r - l - 1));
+42            }
+43        }
+44        return ans;
+45    }
+46}
