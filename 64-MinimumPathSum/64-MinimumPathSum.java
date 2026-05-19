@@ -1,24 +1,18 @@
-// Last updated: 3/24/2026, 1:49:28 AM
+// Last updated: 5/19/2026, 6:11:56 PM
 1class Solution {
 2    public int minPathSum(int[][] grid) {
-3        int[][] dp = new int[grid.length][grid[0].length];
-4        for(int[] i : dp) Arrays.fill(i,-1);
-5        return rec(grid , 0 , 0 , dp);
-6        
-7    }
-8
-9    public int rec(int[][] grid , int row , int col , int[][] dp){
-10        if(row > grid.length-1 || col > grid[0].length-1){
-11            return Integer.MAX_VALUE;
-12        }
-13        if(row == grid.length-1 && col == grid[0].length-1){
-14            return grid[row][col];
-15        }
-16        if(dp[row][col] != -1) return dp[row][col];
-17
-18        int right = rec(grid , row + 1 , col , dp);
-19        int down =  rec(grid , row , col + 1 , dp);
-20        dp[row][col] = Math.min(right , down) + grid[row][col];
-21        return dp[row][col];
-22    }
-23}
+3        int[][] dp= new int[grid.length][grid[0].length];
+4        for(int[] d : dp) Arrays.fill(d , -1);
+5        return solver(grid , 0 , 0 , dp);
+6    }
+7    public int solver(int[][] arr , int i , int j , int[][] dp){
+8        if(i >= arr.length || j >= arr[0].length) return Integer.MAX_VALUE;
+9        if(i == arr.length-1 && j == arr[0].length-1) return arr[i][j];
+10        if(dp[i][j] != -1) return dp[i][j];
+11
+12        int left = solver(arr , i+1 , j , dp);
+13        int right = solver(arr, i , j+1 , dp);
+14        dp[i][j] = Math.min(left,right) + arr[i][j];
+15        return dp[i][j];
+16    }
+17}
