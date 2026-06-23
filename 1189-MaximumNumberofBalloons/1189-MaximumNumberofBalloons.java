@@ -1,4 +1,4 @@
-// Last updated: 6/23/2026, 7:03:04 PM
+// Last updated: 6/23/2026, 7:03:09 PM
 1class Solution {
 2    public int maxNumberOfBalloons(String text) {
 3        Map<Character,Integer> map = new HashMap<>();
@@ -18,8 +18,7 @@
 17                map.put(key , map.get(key)/2);
 18            }
 19            min  = Math.min(min , map.get(key));
-20            System.out.println(key + " " + map.get(key));
-21        }
-22        return min;
-23    }
-24}
+20        }
+21        return min;
+22    }
+23}
