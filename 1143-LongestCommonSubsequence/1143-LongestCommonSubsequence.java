@@ -1,21 +1,24 @@
-// Last updated: 1/3/2026, 3:09:40 PM
+// Last updated: 6/24/2026, 12:40:30 PM
 1class Solution {
-2    public int longestCommonSubsequence(String text1, String text2) {
-3        int[][] dp = new int[text1.length()][text2.length()];
-4        for(int[] d : dp) Arrays.fill(d , -1);
-5        return solver(text1 , text2 , 0 , 0,dp);
-6    }
-7    public int solver(String s1 , String s2 , int i , int j,int[][] dp){
-8        if(s1.length() == i || s2.length() == j) return 0;
-9        if(dp[i][j] != -1) return dp[i][j];
-10
-11        int take = 0;
-12        int skip = 0;
-13        if(s1.charAt(i) == s2.charAt(j)){
-14            take = solver(s1 , s2 , i+1 , j+1,dp)+1;
-15        }else{
-16            skip = Math.max(solver(s1 , s2 , i+1 , j,dp),Math.max(solver(s1 , s2 , i , j+1,dp),solver(s1 , s2 , i+1 , j+1,dp)));
-17        }
-18        return dp[i][j] = Math.max(take,skip);
-19    }
-20}
+2    public int longestCommonSubsequence(String s1, String s2) {
+3        int n = s1.length();
+4        int m = s2.length();
+5        int[][] dp = new int[n][m];
+6        for(int[] d : dp) Arrays.fill(d , -1);
+7        return solver(s1 , s2 , 0 , 0 , dp);
+8    }
+9    public int solver(String s1 , String s2 , int i , int j , int[][] dp){
+10        if(i >= s1.length() || j >= s2.length()) return 0;
+11        if(dp[i][j] != -1) return dp[i][j];
+12
+13        int x = 0;
+14        if(s1.charAt(i) == s2.charAt(j)){
+15            return dp[i][j] = solver(s1 , s2 , i+1 , j+1 , dp) + 1;
+16        }else{
+17            x = solver(s1, s2 , i+1 , j, dp);
+18            x = Math.max(x , solver(s1 , s2 , i, j+1 , dp));
+19            x = Math.max(x , solver(s1 , s2 , i+1 , j+1 , dp));
+20        }
+21        return dp[i][j] =x;
+22    }
+23}
