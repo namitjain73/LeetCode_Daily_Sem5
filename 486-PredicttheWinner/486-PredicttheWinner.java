@@ -1,20 +1,21 @@
-// Last updated: 10/16/2025, 2:27:23 AM
-class Solution {
-    public boolean predictTheWinner(int[] nums) {
-        if(nums.length <  2) return true;
-        int sum = 0;
-        for(int i : nums) sum += i;
-        int[][] dp = new int[nums.length][nums.length];
-        for(int[] d : dp) Arrays.fill(d,-1);
-        int ans = solver(nums,0,nums.length-1,dp);
-        if((sum-ans) > ans) return false;
-        return true;
-    }
-    public int solver(int[] arr ,int i , int j ,int[][] dp){
-        if(i > j) return 0;
-        if(dp[i][j] != -1) return dp[i][j];
-        int f = arr[i] + Math.min(solver(arr,i+2,j,dp),solver(arr,i+1,j-1,dp));
-        int l = arr[j] + Math.min(solver(arr,i+1,j-1,dp),solver(arr,i,j-2,dp));
-        return dp[i][j] = Math.max(f,l);
-    }
-}
+// Last updated: 8/1/2026, 8:42:34 PM
+1class Solution {
+2    public boolean predictTheWinner(int[] nums) {
+3        int n = nums.length;
+4        int[][] dp = new int[n][n];
+5        for(int[] d : dp) Arrays.fill(d , -1);
+6        int sum = 0 ;
+7        for(int i : nums) sum += i;
+8        int ans = solver(0 , n-1 , nums , dp);
+9        return ans >= (sum - ans) ? true : false;
+10    }
+11    public int solver(int i , int j , int[] arr , int[][] dp){
+12        if(i > j) return 0;
+13        if(dp[i][j] != -1) return dp[i][j];
+14
+15        int fs = arr[i] + Math.min(solver(i+2 , j , arr , dp) , solver(i+1 , j-1 , arr , dp));
+16        int ss = arr[j] + Math.min(solver(i+1 , j-1 , arr , dp) , solver(i , j-2 , arr , dp));
+17        int ans = Math.max(fs , ss);
+18        return dp[i][j] = ans;
+19    }
+20}
