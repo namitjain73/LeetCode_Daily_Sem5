@@ -1,14 +1,22 @@
-// Last updated: 8/3/2026, 1:27:40 AM
+// Last updated: 8/10/2026, 9:02:43 AM
 1class Solution {
 2    public boolean stoneGame(int[] piles) {
-3       Integer[][]arr=new Integer[piles.length][piles.length];
-4        return helper(piles,0,piles.length-1,arr)>=0;
-5    }
-6    public static int helper(int[]arr,int start,int end,Integer[][]dp){
-7        if(start==end)return arr[start];
-8        if(dp[start][end]!=null)return dp[start][end];
-9        int takeStart=arr[start]-helper(arr,start+1,end,dp);
-10        int takeEnd=arr[end]-helper(arr,start,end-1,dp);
-11        return dp[start][end]=Math.max(takeStart,takeEnd);
-12    }
-13}
+3        int n = piles.length;
+4        int[][] dp = new int[n][n];
+5        for(int[] d : dp) Arrays.fill(d , -1);
+6        int sum = 0;
+7        for(int i : piles) sum += i;
+8        int ans = solver(piles , 0 , n-1, dp);
+9        return ans > (sum / 2) ? true : false;
+10    }
+11    public int solver(int[] arr , int i, int j , int[][] dp){
+12        if(i > j) return 0;
+13        if(dp[i][j] != -1) return dp[i][j];
+14
+15        int left = arr[i] + Math.min(solver(arr , i+2 , j , dp) , solver(arr , i+1 , j-1 , dp));
+16        int right = arr[j] + Math.min(solver(arr , i+1 , j-1, dp) , solver(arr , i , j-2 , dp));
+17        dp[i][j] = Math.max(left , right);
+18        return dp[i][j];
+19
+20    }
+21}
