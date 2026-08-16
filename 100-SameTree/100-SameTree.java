@@ -1,4 +1,4 @@
-// Last updated: 2/10/2026, 5:51:06 PM
+// Last updated: 8/16/2026, 4:22:08 PM
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -18,9 +18,10 @@
 17    public boolean isSameTree(TreeNode p, TreeNode q) {
 18        if(p == null && q == null) return true;
 19        if(p == null || q == null) return false;
-20
-21        boolean left = isSameTree(p.left , q.left);
-22        boolean right = isSameTree(p.right , q.right);
-23        return left && right && p.val == q.val;
-24    }
-25}
+20        if(p.val != q.val) return false;
+21
+22        boolean left = isSameTree(p.left , q.left);
+23        boolean right = isSameTree(p.right , q.right);
+24        return left && right;
+25    }
+26}
