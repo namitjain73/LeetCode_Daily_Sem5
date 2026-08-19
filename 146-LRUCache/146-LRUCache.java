@@ -1,4 +1,4 @@
-// Last updated: 8/19/2026, 1:30:22 AM
+// Last updated: 8/19/2026, 2:56:18 PM
 1class LRUCache {
 2    class ListNode{
 3        int key;
@@ -12,15 +12,15 @@
 11        }
 12    }
 13
-14    int cap;
-15    Map<Integer,ListNode> map;
-16    ListNode head;
-17    ListNode tail;
-18
-19    public LRUCache(int capacity) {
-20        cap = capacity;
-21        map = new HashMap<>();
-22
+14
+15    ListNode head;
+16    ListNode tail;
+17    Map<Integer,ListNode> map;
+18    int cap;
+19
+20    public LRUCache(int capacity) {
+21        cap = capacity;
+22        map = new HashMap<>();
 23        head = new ListNode(0,0);
 24        tail = new ListNode(0,0);
 25
@@ -35,27 +35,27 @@
 34        remove(node);
 35        add(node);
 36        return node.value;
-37
-38    }
-39    
-40    public void put(int key, int value) {
-41        if(map.containsKey(key)){
-42            ListNode node = map.get(key);
-43            node.value = value;
+37    }
+38    
+39    public void put(int key, int value) {
+40        if(map.containsKey(key)){
+41            ListNode node = map.get(key);
+42            node.value = value;
+43            map.put(key , node);
 44
 45            remove(node);
 46            add(node);
 47            return;
 48        }
 49
-50        ListNode node = new ListNode(key,value);
+50        ListNode node = new ListNode(key , value);
 51        add(node);
-52        map.put(key,node);
+52        map.put(key , node);
 53
 54        if(map.size() > cap){
-55            ListNode lru = head.next;
-56            remove(lru);
-57            map.remove(lru.key);
+55            ListNode dummy = head.next;
+56            remove(dummy);
+57            map.remove(dummy.key);
 58        }
 59    }
 60
@@ -69,18 +69,17 @@
 68    public void add(ListNode node){
 69        ListNode old = tail.pre;
 70
-71        node.pre = old;
-72        node.next = tail;
+71        old.next = node;
+72        node.pre= old;
 73
-74        old.next = node;
+74        node.next = tail;
 75        tail.pre = node;
-76
-77    }
-78}
-79
-80/**
-81 * Your LRUCache object will be instantiated and called as such:
-82 * LRUCache obj = new LRUCache(capacity);
-83 * int param_1 = obj.get(key);
-84 * obj.put(key,value);
-85 */
+76    }
+77}
+78
+79/**
+80 * Your LRUCache object will be instantiated and called as such:
+81 * LRUCache obj = new LRUCache(capacity);
+82 * int param_1 = obj.get(key);
+83 * obj.put(key,value);
+84 */
