@@ -1,35 +1,37 @@
-// Last updated: 1/2/2026, 6:48:08 AM
+// Last updated: 8/24/2026, 12:46:56 PM
 1class Solution {
-2    public boolean canFinish(int v, int[][] pre) {
-3        int[] indeg = new int[v];
-4        List<List<Integer>>  ll = new ArrayList<>();
-5        for(int i = 0 ; i < v ; i++){
-6            ll.add(new ArrayList<>());
-7        }
-8        for(int[] i : pre){
-9            ll.get(i[0]).add(i[1]);
-10            indeg[i[1]]++;
-11        }
-12
-13        int n = 0;
-14        Queue<Integer> q = new LinkedList<>();
-15        for(int i = 0 ; i < v ; i++){
-16            if(indeg[i] == 0){
-17                q.add(i);
-18            }
-19        }
+2    public boolean canFinish(int n, int[][] prerequisites) {
+3        Map<Integer,ArrayList<Integer>> adj = new HashMap<>();
+4        int[] indeg = new int[n];
+5
+6        for(int i = 0 ; i < n ; i++) adj.put(i , new ArrayList<>());
+7        for(int i = 0 ; i < prerequisites.length ; i++){
+8            int u = prerequisites[i][0];
+9            int v = prerequisites[i][1];
+10            adj.get(u).add(v);
+11            indeg[v]++;
+12        }
+13
+14        boolean[] visited = new boolean[n];
+15        Queue<Integer> q = new LinkedList<>();
+16        for(int i = 0 ; i < n ; i++){
+17            if(indeg[i] == 0) q.add(i);
+18        }
+19
 20        while(!q.isEmpty()){
-21            int rm = q.poll();
-22            n++;
-23            
-24            for(int i : ll.get(rm)){
-25                indeg[i]--;
-26                if(indeg[i] == 0){
-27                    q.add(i);
-28                }
-29            }
-30        }
-31
-32        return n == v;
-33    }
-34}
+21            int node = q.poll();
+22            n--;
+23            for(int nbrs : adj.get(node)){
+24                indeg[nbrs]--;
+25                if(indeg[nbrs] == 0){
+26                    q.add(nbrs);
+27                }
+28            }
+29        }
+30
+31        for(int i = 0; i < n ; i++){
+32            System.out.println(indeg[i]);
+33        }
+34        return n == 0;
+35    }
+36}
