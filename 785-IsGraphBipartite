@@ -1,36 +1,40 @@
-// Last updated: 10/17/2025, 12:40:01 AM
-class Solution {
-    public boolean isBipartite(int[][] graph) {
-        int V = graph.length;
-        List<List<Integer>> ll = new ArrayList<>();
-        int[] color = new int[V];
-        Arrays.fill(color,-1);
-
-        for(int i = 0 ; i < V ; i++){
-            ll.add(new ArrayList<>());
-        }
-
-        for(int i = 0 ; i < V ; i++){
-            for(int j : graph[i]){
-                ll.get(i).add(j);
-            }
-        }
-
-        for(int i = 0 ; i < V ; i++){
-            if(color[i] == -1){
-                color[i] = 0;
-                if(!dfs(ll,color,i)) return false;
-            }
-        }
-        return true;
-    }
-    public boolean dfs(List<List<Integer>> adj , int[] color , int node){
-        for(int i : adj.get(node)){
-            if(color[i] == -1){
-                color[i] = (color[node]+1)%2;
-                if(!dfs(adj,color,i)) return false;
-            }else if(color[node] == color[i]) return false;
-        }
-    return true;
-    }
-}
+// Last updated: 8/24/2026, 12:21:05 PM
+1class Solution {
+2    public boolean isBipartite(int[][] graph) {
+3        Queue<int[]> q = new LinkedList<>();
+4        // Map<Integer,ArrayList> adj = new HashMap<>();
+5        // for(int i = 0 ; i < graph.length ; i++){
+6        //     map.put(i,new ArrayList<>());
+7        // }
+8
+9        // for(int i = 0 ; i < graph.length ; i++){
+10
+11        // }
+12
+13        Map<Integer,Integer> map = new HashMap<>();
+14
+15        for(int i = 0 ; i < graph.length ; i++){
+16            if(!map.containsKey(i)){
+17                q.add(new int[]{i,0});
+18                while(!q.isEmpty()){
+19                    int[] curr = q.poll();
+20
+21                    if(map.containsKey(curr[0])){
+22                        if(map.get(curr[0]) != curr[1]) return false;
+23                        continue;
+24                    }
+25
+26                    map.put(curr[0],curr[1]);
+27                    for(int nbrs : graph[curr[0]]){
+28                        if(!map.containsKey(nbrs)){
+29                            q.add(new int[]{nbrs,curr[1]+1});
+30                        }
+31                    }
+32                }
+33
+34            }
+35        }
+36
+37        return true;
+38    }
+39}
